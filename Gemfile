@@ -2,8 +2,11 @@ source 'https://rubygems.org'
 
 
 gem 'rails', '4.2.1'
-
 gem 'mongoid'
+
+gem 'figaro'
+gem 'omniauth-google-oauth2'
+gem 'google_drive'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
