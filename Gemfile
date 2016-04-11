@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'awesome_print'
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.6'
 gem 'mongoid'
 
 gem 'figaro'
