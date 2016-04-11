@@ -1,40 +1,86 @@
 class ContactsController < ApplicationController
 
-  def welcome
-  end
+  before_action :set_spreadsheet_key, only: [:import]
 
   def index
+  end
+
+  # show imported documents/contacts
+  def book
+    @contacts = Contact.all
+
+    if @contacts.count > 0
+      render
+    else
+      render text: "No contacts. You should import them..."
+    end
+
   end
 
   # show individual contact
   def show
   end
 
-  # create the session
-  def create_session
-  end
+  # import from spreadsheet
+  def import
+    
+    @session = GoogleDrive.login_with_oauth(session[:access_token])
 
-  # pull the spreadsheet
+    @spreadsheet = @session.spreadsheet_by_key(@key).worksheets[0]
+
+    # if @spreadsheet.present?
+
+      @spreadsheet.rows.drop(1).each do |row|
+        Contact.create(
+          forename: row[0],
+          surname: row[1],
+          email: row[2],
+          phone: row[3]
+        )
+      end
+
+      respond_to do |format|
+        format.html
+      end
+
+    # else
+
+    #   render text: "No spreadsheet found."
+
+    # end
+
+  end 
+
+  # pull applicable spreadsheets
   def authenticate
 
-    @user = request.env["omniauth.auth"]["info"]
-    credentials = request.env["omniauth.auth"]["credentials"]
+    if request.env["omniauth.auth"].present?
+      
+      session[:access_token] = request.env["omniauth.auth"]["credentials"]["token"]
 
-    # initialise Google Drive module w/OAuth details
-    session = GoogleDrive.login_with_oauth(credentials["token"])
+      @user = request.env["omniauth.auth"]["info"]
+      credentials = request.env["omniauth.auth"]["credentials"]
 
-    # get list of spreadsheets
-      # https://developers.google.com/drive/v2/reference/files/list
-    @spreadsheets = session.spreadsheets(corpus: "DEFAULT", maxResults: 5, orderBy: "modifiedByMeDate desc")
+      # initialise Google Drive module w/OAuth details
+      @session = GoogleDrive.login_with_oauth(session[:access_token])
 
-    respond_to do |format|
-      format.html
+      # get list of spreadsheets
+      @spreadsheets = @session.spreadsheets(corpus: "DEFAULT", maxResults: 5, orderBy: "modifiedByMeDate desc")
+
+      respond_to do |format|
+        format.html
+      end
+    else
+      render text: "Woops, authorisation failed."
     end
 
-    # user["name"]
-#    render text: request.env["omniauth.auth"].to_yaml
-    
- #   byebug
 
   end
+
+  private
+
+  def set_spreadsheet_key
+    @key = params[:key]
+  end
+
 end
