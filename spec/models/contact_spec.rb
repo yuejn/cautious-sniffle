@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
-  it "has a valid factory"
+  it "has a valid factory" do
+    expect(FactoryGirl.create(:contact)).to be_valid
+  end
   it "is invalid without a forename"
   it "is invalid without a surname"
   it "is invalid without an email"
