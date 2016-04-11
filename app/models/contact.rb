@@ -14,4 +14,10 @@ class Contact
   validates_presence_of :email
   validates_presence_of :phone
 
+  # Output
+
+  def full_name
+    [forename, surname].join " "
+  end
+
 end

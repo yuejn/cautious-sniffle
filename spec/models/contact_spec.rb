@@ -22,5 +22,10 @@ RSpec.describe Contact, type: :model do
     expect(FactoryGirl.build(:contact, phone: nil)).to_not be_valid
   end 
 
-  it "returns a contact's full name as a string"
+
+  it "returns a contact's full name as a string" do 
+    contact = FactoryGirl.build(:contact, forename: "Jon", surname: "Snow")
+    expect(contact.full_name).to eq("Jon Snow")
+  end
+
 end
