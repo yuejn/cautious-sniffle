@@ -39,6 +39,8 @@ Rails 4.2.6
     gem 'omniauth-google-oauth2'
     gem 'google_drive'
     
+    ...
+    
     group :development, :test do 
         gem 'rspec-rails'
         gem 'factory_girl_rails'
@@ -111,6 +113,8 @@ __Tuesday__:
 
 * JSON API endpoint (use `rabl`);
 * Check tests;
+* Delete import data after one hour, end of session, whenever;
 * Refactor code;
-* Fool-proof cases;
-* Better templating/rendering.
+* Make it fool-proof;
+* Better templating/rendering;
+* Heroku?!
