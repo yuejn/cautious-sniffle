@@ -1,6 +1,7 @@
 class ContactsController < ApplicationController
 
   before_action :set_spreadsheet_key, only: [:import]
+  before_action :has_tokens?
 
   def index
   end
