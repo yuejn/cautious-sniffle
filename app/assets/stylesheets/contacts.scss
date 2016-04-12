@@ -9,10 +9,9 @@ body {
   font: 100%/1.5 arial, sans-serif;
 }
 
-#wrap {
-  width: 600px;
-  max-width: 80%;
-  margin: 1em auto;
+img {
+  width: 100%;
+  height: auto;
 }
 
 ul {
@@ -23,8 +22,28 @@ p {
   margin: 1em 0;
 }
 
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+.center {
+  text-align: center;
+}
+
+#wrap {
+  width: 600px;
+  max-width: 80%;
+  margin: 1em auto;
+}
+
 .contact {
   border: 1px solid;
   padding: 1em;
   margin: 1em 0;
+}
+
+.big-link {
+  font-weight: bold;
+  font-size: 200%;
 }
