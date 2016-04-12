@@ -4,11 +4,8 @@ class ContactsController < ApplicationController
   before_action :set_contact, only: [:show]
   before_action :has_tokens?
 
-  def index
-  end
-
   # show imported documents/contacts
-  def list
+  def index
     @contacts = Contact.all
 
     if @contacts.count == 0
@@ -19,7 +16,6 @@ class ContactsController < ApplicationController
 
   # show individual contact
   def show
-
   end
 
   # import from spreadsheet

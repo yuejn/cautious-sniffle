@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
-  root "contacts#welcome"
+  root "welcome#index"
 
-  get "/list", to: "contacts#list"
-  get "/contact/:id", to: "contacts#show", as: "contact"
+  resources :welcome, only: [:index]
+  resources :contacts, only: [:index, :show] 
 
   get "/auth/:provider/callback", to: "contacts#authenticate"
   get "/import/:key", to: "contacts#import", as: "import_spreadsheet"
