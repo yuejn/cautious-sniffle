@@ -6,11 +6,14 @@ class ContactsController < ApplicationController
 
   # show imported documents/contacts
   def index
+
     @contacts = Contact.all
 
     if @contacts.count == 0
       render text: "No contacts. You should import them..."
     end
+
+    respond_to :html, :json
 
   end
 
@@ -55,10 +58,6 @@ class ContactsController < ApplicationController
 
       # get list of spreadsheets
       @spreadsheets = @session.spreadsheets(corpus: "DEFAULT", maxResults: 5, orderBy: "modifiedByMeDate desc")
-
-      respond_to do |format|
-        format.html
-      end
 
     else
       render text: "Woops, authorisation failed."
