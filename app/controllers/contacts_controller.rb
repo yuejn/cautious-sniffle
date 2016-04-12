@@ -37,10 +37,8 @@ class ContactsController < ApplicationController
         )
       end
 
-      respond_to do |format|
-        format.html
-      end
-
+      respond_to :html
+  
   end
 
   # pull applicable spreadsheets
