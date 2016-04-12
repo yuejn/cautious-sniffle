@@ -1,18 +1,17 @@
 class ContactsController < ApplicationController
 
   before_action :set_spreadsheet_key, only: [:import]
+  before_action :set_contact, only: [:show]
   before_action :has_tokens?
 
   def index
   end
 
   # show imported documents/contacts
-  def book
+  def list
     @contacts = Contact.all
 
-    if @contacts.count > 0
-      render
-    else
+    if @contacts.count == 0
       render text: "No contacts. You should import them..."
     end
 
@@ -20,6 +19,7 @@ class ContactsController < ApplicationController
 
   # show individual contact
   def show
+
   end
 
   # import from spreadsheet
@@ -28,8 +28,6 @@ class ContactsController < ApplicationController
     @session = GoogleDrive.login_with_oauth(session[:access_token])
 
     @spreadsheet = @session.spreadsheet_by_key(@key).worksheets[0]
-
-    # if @spreadsheet.present?
 
       @spreadsheet.rows.drop(1).each do |row|
         Contact.create(
@@ -44,12 +42,6 @@ class ContactsController < ApplicationController
         format.html
       end
 
-    # else
-
-    #   render text: "No spreadsheet found."
-
-    # end
-
   end
 
   # pull applicable spreadsheets
@@ -62,7 +54,7 @@ class ContactsController < ApplicationController
       @user = request.env["omniauth.auth"]["info"]
       credentials = request.env["omniauth.auth"]["credentials"]
 
-      # initialise Google Drive module w/OAuth details
+      # initialise Google Drive module with OAuth details
       @session = GoogleDrive.login_with_oauth(session[:access_token])
 
       # get list of spreadsheets
@@ -71,17 +63,22 @@ class ContactsController < ApplicationController
       respond_to do |format|
         format.html
       end
+
     else
       render text: "Woops, authorisation failed."
     end
 
-
   end
+
 
   private
 
   def set_spreadsheet_key
     @key = params[:key]
+  end
+
+  def set_contact
+    @contact = Contact.find(params[:id])
   end
 
 end

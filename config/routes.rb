@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
-  root "contacts#index"
+  root "contacts#welcome"
 
-  get "/book", to: "contacts#book"
+  get "/list", to: "contacts#list"
+  get "/contact/:id", to: "contacts#show", as: "contact"
+
   get "/auth/:provider/callback", to: "contacts#authenticate"
   get "/import/:key", to: "contacts#import", as: "import_spreadsheet"
 

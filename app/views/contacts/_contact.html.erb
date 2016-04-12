@@ -1,4 +1,4 @@
 <div class="contact">
-  <h2><%= contact.full_name %></h2>
+  <h3><%= link_to contact.full_name, contact_path(contact) %></h3>
   <p><%= link_to contact.email, "mailto:" + contact.email %> / <%= contact.phone %></p>
 </div>

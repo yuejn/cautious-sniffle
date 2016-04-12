@@ -1,0 +1,8 @@
+<div class="contact">
+  <h1><%= @contact.full_name %></h1>
+  <p>
+    <strong>Email Address:</strong> <%= link_to @contact.email, "mailto:" + @contact.email %>
+    <br /><strong>Phone #:</strong> <%= @contact.phone %></p>
+</div>
+
+<p><%= link_to "< Back to address book", list_path %></p>
