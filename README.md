@@ -2,11 +2,9 @@
 
 Create a simple Ruby on Rails (4) application that pulls contact data from a Google Drive spreadsheet and store those contacts as separate documents in a MongoDB instance.
 
-Bonus question: Expose those documents through an API endpoint in JSON format.
-
 ## Proposal
 
-__Assumption:__ The spreadsheet is listed in forename, surname, email address, phone number; all fields are filled out.
+__Assumption:__ The spreadsheet is listed in forename, surname, email address, phone number; all fields are filled out. Bad fields are ignored.
 
 1. User authenticates with Google;
 2. A list of available spreadsheets (their latest viewed) are shown;
@@ -15,7 +13,7 @@ __Assumption:__ The spreadsheet is listed in forename, surname, email address, p
     * MVP+: User can pick which columns are forename, surname &c.;
     * MVP+: User can manually run-through contacts with missing information;
 5. The user is directed to another page showing the list of imported contacts;
-    * MVP+: User can edit/delete each contact individually.
+6. The user can view an individual contact.
 
 ### Versions
 
@@ -38,6 +36,8 @@ Rails 4.2.6
     gem 'figaro'
     gem 'omniauth-google-oauth2'
     gem 'google_drive'
+
+    ...
     
     group :development, :test do 
         gem 'rspec-rails'
@@ -70,12 +70,16 @@ Rails 4.2.6
 * `email` String
 * `phone` String
 
-### Controller: `contacts`
+### Controller: `welcome`
 
 * `#index` Welcome page, linking to Google authentication
+
+### Controller: `contacts`
+
+* `#index` Shows list of imported contacts
+* `#show` Shows individual contact document
 * `#authenticate` Authenticates Google Drive, retrieves list of latest spreadsheets
 * `#import` Takes `:key` as spreadsheet key and imports the contact data into documents
-* `#book` Shows list of imported contacts
 
 ### Credentials
 
@@ -109,8 +113,9 @@ __Monday__:
 
 __Tuesday__:
 
-* JSON API endpoint (use `rabl`);
-* Check tests;
-* Refactor code;
-* Fool-proof cases;
-* Better templating/rendering.
+* JSON response: `contacts.json`
+* Checked unit test;
+* Removed trailing white spaces;
+* Added individual document show;
+* Setup scope for default document ordering (by surname);
+* Kick-out if no Google tokens.
