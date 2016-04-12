@@ -4,6 +4,8 @@ gem 'awesome_print'
 gem 'rails', '4.2.6'
 gem 'mongoid'
 
+gem 'rabl'
+
 gem 'figaro'
 gem 'omniauth-google-oauth2'
 gem 'google_drive'
