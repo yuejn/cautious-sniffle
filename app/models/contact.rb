@@ -14,6 +14,10 @@ class Contact
   validates_presence_of :email
   validates_presence_of :phone
 
+  # Scope
+
+  default_scope { order("surname ASC") }
+
   # Output
 
   def full_name
