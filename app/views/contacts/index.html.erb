@@ -1,3 +1,5 @@
 <h2>Contacts</h2>
 
+<p><%= link_to "JSON export", contacts_path(format: :json) %></p>
+
 <%= render partial: "contact", collection: @contacts %>
