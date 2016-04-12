@@ -39,6 +39,8 @@ Rails 4.2.6
 
     ...
     
+    ...
+    
     group :development, :test do 
         gem 'rspec-rails'
         gem 'factory_girl_rails'
