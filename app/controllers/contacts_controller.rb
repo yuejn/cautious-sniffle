@@ -23,7 +23,7 @@ class ContactsController < ApplicationController
 
   # import from spreadsheet
   def import
-    
+
     @session = GoogleDrive.login_with_oauth(session[:access_token])
 
     @spreadsheet = @session.spreadsheet_by_key(@key).worksheets[0]
@@ -49,13 +49,13 @@ class ContactsController < ApplicationController
 
     # end
 
-  end 
+  end
 
   # pull applicable spreadsheets
   def authenticate
 
     if request.env["omniauth.auth"].present?
-      
+
       session[:access_token] = request.env["omniauth.auth"]["credentials"]["token"]
 
       @user = request.env["omniauth.auth"]["info"]
